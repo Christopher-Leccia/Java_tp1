@@ -1,3 +1,4 @@
+package characters;
 
 public class Hero {
 	
@@ -12,11 +13,9 @@ public class Hero {
 	
 	//Constructors
 	public Hero (String name) {
+		this();
 		this.name = name;
-		life = 100;
-		maxLife = 100;
-		stamina = 50;
-		maxStamina = 50;
+
 	}
 	
 	public Hero () {
@@ -70,13 +69,20 @@ public class Hero {
 	}
 	
 	//Methods
-		public void PrintStats() {
-			System.out.println(this.toString());
-		}
+	public void PrintStats() {
+		System.out.println(this.toString());
+	}
 		
-		public String toString() {
-			return "[ Hero ]\t" + this.name + "\tLIFE:" + this.life + "\tSTAMINA:" + this.stamina;
+	public String toString() {
+		if (this.IsAlive() == true) {
+		return "[ Hero ]\t" + this.name + "\tLIFE:" + this.life + "\tSTAMINA:" + this.stamina + "\t(ALIVE)";
 		}
+		return "[ Hero ]\t" + this.name + "\tLIFE:" + this.life + "\tSTAMINA:" + this.stamina + "\t(DEAD)";
+	}
+		
+	public Boolean IsAlive() {
+		return this.getCurrentLife()>0;
+	}
 	
 	
 }
