@@ -17,7 +17,6 @@ public class Character {
 	
 	public Character () {
 
-		
 	}
 	
 	//Getters
@@ -68,9 +67,9 @@ public class Character {
 		
 	public String toString() {
 		if (this.IsAlive() == true) {
-		return "[ " + this.getClass().getSimpleName() + " ]" + "\t" + this.name + "\tLIFE:" + this.life + "\tSTAMINA:" + this.stamina + "\t(ALIVE)";
+		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + "LIFE:" + String.format("%-20s", this.life) + "STAMINA:" + String.format("%-20s", this.stamina) + "(ALIVE)";
 		}
-		return "[ " + this.getClass().getSimpleName() + " ]" + "\t" + this.name + "\tLIFE:" + this.life + "\tSTAMINA:" + this.stamina + "\t(DEAD)";
+		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + "LIFE:" + String.format("%-20s", this.life) + "STAMINA:" + String.format("%-20s", this.stamina) + "(DEAD)";
 	}
 		
 	public Boolean IsAlive() {
