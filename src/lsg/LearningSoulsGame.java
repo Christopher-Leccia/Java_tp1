@@ -2,6 +2,8 @@ package lsg;
 
 import characters.Hero;
 import characters.Monster;
+import lsg.helpers.Dice;
+import lsg.weapons.Weapon;
 
 public class LearningSoulsGame {
 
@@ -14,12 +16,21 @@ public class LearningSoulsGame {
 		Monster monster2 = new Monster();
 		Monster monster3 = new Monster();
 		
+		Dice diceRoll = new Dice(50);
+		
+		Weapon weapon1 = new Weapon("Buritzu Sword", 5, 10, 20, 100);
+		
 		hero1.PrintStats();
 		hero2.PrintStats();
 		
 		monster1.PrintStats();
 		monster2.PrintStats();
 		monster3.PrintStats();
+		
+		diceRoll.roll500();
+		
+		weapon1.printStatWeapon();
+		
 		
 	}
 
