@@ -14,6 +14,12 @@ Comme isAlive et le main ne sont pas dans le même paquet, le niveau de sécurit
 
 TP2
 
+
+1.2)Pour afficherdynamiquementle nom de la classe (le « [ Hero ] » et « [ Monster ] »), vous utiliserez un appel à getClass().getSimpleName(). Cherchez ces méthodes dans la documentation officielle Java. Comment cela fonctionne-t-il ?
+
+Cette méthode récupère le nom de la classe pour laquelle la méthode est utilisée.
+
+
 1.2)Il faudra certainement passer des membres de private à protected. Pourquoi ?
 
 Le fait de devoir passer des membres de private à protected est dû au fait que l'on change de classe.
