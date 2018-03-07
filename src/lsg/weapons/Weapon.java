@@ -11,10 +11,21 @@ public class Weapon {
 	
 	public Weapon (String name, int minDamage, int maxDamage, int stamCost, int durability) {
 		this.name = name;
-		this.minDamage = minDamage;
-		this.maxDamage = maxDamage;
-		this.stamCost = stamCost;
-		this.durability = durability;
+		this.minDamage = 5;
+		this.maxDamage = 10;
+		this.stamCost = 20;
+		this.durability = 100;
+
+	}
+	
+	public Weapon () {
+		this.name = "Basic Weapon";
+		this.minDamage = 5;
+		this.maxDamage = 10;
+		this.stamCost = 20;
+		this.durability = 100;
+
+		
 	}
 	
 	public String getName() {
@@ -34,7 +45,7 @@ public class Weapon {
 	}
 	
 	public int getMinDamage() {
-		return maxDamage;
+		return minDamage;
 	}
 	
 	public void setMinDamage(int minDamage) {
@@ -70,7 +81,7 @@ public class Weapon {
 	}
 	
 	public void printStatWeapon() {
-		System.out.print(this.toString());
+		System.out.println(this.toString());
 		
 	}
 	

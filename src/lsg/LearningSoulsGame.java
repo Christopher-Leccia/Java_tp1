@@ -18,7 +18,8 @@ public class LearningSoulsGame {
 		
 		Dice diceRoll = new Dice(50);
 		
-		Weapon weapon1 = new Weapon("Buritzu Sword", 5, 10, 20, 100);
+		Weapon weapon1 = new Weapon("Buritzu Sword", 7, 25, 20, 100);
+		Weapon weaponSword = new Weapon();
 		
 		hero1.PrintStats();
 		hero2.PrintStats();
@@ -30,7 +31,9 @@ public class LearningSoulsGame {
 		diceRoll.roll500();
 		
 		weapon1.printStatWeapon();
+		weaponSword.printStatWeapon();
 		
+		hero1.attackWith(weaponSword);
 		
 	}
 

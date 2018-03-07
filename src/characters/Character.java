@@ -1,5 +1,8 @@
 package characters;
 
+import lsg.weapons.Weapon;
+import lsg.helpers.Dice;
+
 public class Character {
 	
 	protected String name = new String();
@@ -9,6 +12,8 @@ public class Character {
 	protected int stamina;
 	protected int maxStamina;
 	
+	protected Dice dice;
+	
 	public Character (String name) {
 		this();
 		this.name = name;
@@ -16,6 +21,7 @@ public class Character {
 	}
 	
 	public Character () {
+		dice = new Dice(101);
 
 	}
 	
@@ -74,6 +80,26 @@ public class Character {
 		
 	public Boolean IsAlive() {
 		return this.getCurrentLife() > 0;
+	}
+	
+	public int attackWith(Weapon weapon) {
+		if (weapon.isBroken()) {
+			return 0;
+		}
+		/*
+		if (this.stamina < weapon.getStamCost()) {
+			(this.stamina * 100) / weapon.getStamCost();
+		}*/
+		
+		int diceDamage = (this.dice.roll() * weapon.getMinDamage()) / 100;
+		int damage = weapon.getMinDamage() + Math.round(diceDamage);
+		
+		this.stamina -= weapon.getStamCost();
+		
+		System.out.println("Damage: " + damage);
+		System.out.println("Stamina Resttante: " + this.stamina);
+		
+		return damage;
 	}
 		
 }

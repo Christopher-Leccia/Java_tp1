@@ -2,8 +2,6 @@ package characters;
 
 public class Hero extends Character{
 	
-	//Variables
-	
 	//Constructors
 	public Hero (String name) {
 		this();

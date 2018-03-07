@@ -25,8 +25,7 @@ public class Dice {
 	}
 	
 	public int roll() {
-		random.setSeed(this.faces - 1);
-		return random.nextInt();
+		return random.nextInt(faces);
 	}
 	
 	public void roll500() {
