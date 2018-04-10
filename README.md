@@ -23,3 +23,8 @@ Cette méthode récupère le nom de la classe pour laquelle la méthode est util
 1.2)Il faudra certainement passer des membres de private à protected. Pourquoi ?
 
 Le fait de devoir passer des membres de private à protected est dû au fait que l'on change de classe.
+
+
+6)Que remarquez-vous au niveau de la durabilité de l'épée?
+
+DU fait que l'on instancie la même épée aux 2 personnages (héro et monstre), la durabilité de l'épée est commune aux deux personnages.
