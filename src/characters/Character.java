@@ -13,6 +13,7 @@ public class Character {
 	protected int maxStamina;
 	
 	protected Dice dice;
+	protected Weapon weapon;
 	
 	public Character (String name) {
 		this();
@@ -45,6 +46,10 @@ public class Character {
 	public int getMaxStamina() {
 		return maxStamina;
 	}
+	
+	public Weapon getWeapon() {
+		return weapon;
+	}
 			
 	//Setters
 	public void setName(String name) {
@@ -71,6 +76,10 @@ public class Character {
 		System.out.println(this.toString());
 	}
 		
+	public void SetWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+		
 	public String toString() {
 		if (this.IsAlive() == true) {
 		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + "LIFE:" + String.format("%-20s", this.life) + "STAMINA:" + String.format("%-20s", this.stamina) + "(ALIVE)";
@@ -79,10 +88,16 @@ public class Character {
 	}
 		
 	public Boolean IsAlive() {
-		return this.getCurrentLife() > 0;
+		if (this.getCurrentLife() > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
 	}
 	
-	public int attackWith(Weapon weapon) {
+	private int attackWith(Weapon weapon) {
 		
 		double damageOutPut = 0;
 		
@@ -92,16 +107,14 @@ public class Character {
 	
 		int diceDamage = (this.dice.roll() * (weapon.getMaxDamage() - weapon.getMinDamage()) / 100);
 		int damage = (weapon.getMinDamage() + Math.round(diceDamage));
+		
 		if (this.stamina < weapon.getStamCost()) {
 			damageOutPut = damage *((double)this.stamina / (double)weapon.getStamCost());
-			damage = (int)damageOutPut;
-			
+			damage = (int)damageOutPut;	
 		}
 		
 		weapon.setDurability(weapon.getDurability() - 1);
 		this.stamina -= weapon.getStamCost();
-		
-		System.out.println("attack with : " + weapon.toString() + " > " + damage);
 		
 		if (this.stamina < 0) {
 			this.stamina = 0;
@@ -109,5 +122,34 @@ public class Character {
 		
 		return damage;
 	}
+	
+	public int attack() {
+		int characterAttack;
+		
+		characterAttack = attackWith(this.getWeapon());
+		
+		return characterAttack;
+	}
+	
+	public int getHitWith (int damage) {
+		int lifeRemaining;
+		
+		lifeRemaining = getCurrentLife() - damage;
+		
+		lifeRemaining = lifeRemaining < 0 ? 0 : lifeRemaining;
+		this.setLife(lifeRemaining);
+		
+		return lifeRemaining;
+	}
+	
+	public void currentBattle (Character monster) {
+		int damage = this.attack();
+		monster.getHitWith(damage);
+		this.PrintStats();
+		monster.PrintStats();
+		System.out.println("!!! " + this.name + " attack " + monster.name + " with " + this.getWeapon() + " !!! ->" + " DAMAGES : " + damage);
+		System.out.println(monster.name + " remaining life : " + monster.getCurrentLife());
+	}
+	
 		
 }

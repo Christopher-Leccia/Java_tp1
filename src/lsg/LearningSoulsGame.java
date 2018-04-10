@@ -1,49 +1,69 @@
 package lsg;
 
+import java.util.Scanner;
+
 import characters.Hero;
 import characters.Monster;
-import lsg.helpers.Dice;
-import lsg.weapons.Weapon;
+import lsg.helpers.*;
+import lsg.weapons.*;
 
 public class LearningSoulsGame {
+	
+	Hero hero = new Hero ("Gurey");
+	Monster monster = new Monster ("Ezechiel");
+	
+	Scanner scan = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int i = 0;
-		Hero hero1 = new Hero("Gurey");
-		Hero hero2 = new Hero();
-		
-		Monster monster1 = new Monster("Etudiator");
-		Monster monster2 = new Monster();
-		Monster monster3 = new Monster();
 		
 		Dice diceRoll = new Dice(50);
 		
-		Weapon weapon1 = new Weapon("Buritzu Sword", 7, 25, 20, 100);
-		Weapon weaponSword = new Weapon();
+		Hero hero1 = new Hero();
+		Monster monster1 = new Monster();
 		
-		Weapon monstweapon = new Weapon("Stickity Stick", 5, 10, 25, 100);
+		Sword weapon1 = new Sword("Buritzu blade", 7, 25, 20, 100);
+		Sword weaponSword = new Sword();
 		
-		/*hero1.PrintStats();
-		hero2.PrintStats();
+		Sword monstweapon = new Sword("Stickity Stick", 5, 10, 25, 100);
 		
-		monster1.PrintStats();
-		monster2.PrintStats();
-		monster3.PrintStats();
+		hero1.SetWeapon(new ShotGun());
+		monster1.SetWeapon(new Sword("Stickity Stick", 5, 10, 25, 100));
 		
-		diceRoll.roll500();
 		
-		weapon1.printStatWeapon();
-		weaponSword.printStatWeapon();*/
-		
-		for (i = 0; i < 10; i++) {
-			hero1.PrintStats();
-			hero1.attackWith(weapon1);
-			monster1.PrintStats();
-			monster1.attackWith(weapon1);
+		while (hero1.getCurrentStamina() > 0 && monster1.IsAlive() == true) {
+			hero1.currentBattle(monster1);
 		}
 		
-		//hero1.attackWith(weaponSword);
+	}
+	
+	public void refresh() {
+		
+		this.hero.PrintStats();
+		this.monster.PrintStats();
+	}
+	
+	public String fight1v1() {
+		while (this.hero.IsAlive() && this.monster.IsAlive()) {
+			
+		refresh();
+		this.hero.currentBattle(this.monster);
+		String str = scan.nextLine();
+		
+		refresh();
+		this.monster.currentBattle(this.hero);
+		str = scan.nextLine();
+		
+		}
+		if (this.hero.IsAlive()) {
+			return (this.hero.getName() + " won the battle !");
+		}
+		if (this.monster.IsAlive()) {
+			return (this.monster.getName() + " won the battle !");
+		}
+	}
+	
+	public void init() {
 		
 	}
 

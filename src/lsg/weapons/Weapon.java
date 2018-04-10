@@ -19,12 +19,7 @@ public class Weapon {
 	}
 	
 	public Weapon () {
-		this.name = "Basic Sword";
-		this.minDamage = 5;
-		this.maxDamage = 10;
-		this.stamCost = 20;
-		this.durability = 100;
-
+		
 		
 	}
 	
