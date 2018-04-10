@@ -11,15 +11,15 @@ public class Weapon {
 	
 	public Weapon (String name, int minDamage, int maxDamage, int stamCost, int durability) {
 		this.name = name;
-		this.minDamage = 5;
-		this.maxDamage = 10;
-		this.stamCost = 20;
-		this.durability = 100;
+		this.minDamage = minDamage;
+		this.maxDamage = maxDamage;
+		this.stamCost = stamCost;
+		this.durability = durability;
 
 	}
 	
 	public Weapon () {
-		this.name = "Basic Weapon";
+		this.name = "Basic Sword";
 		this.minDamage = 5;
 		this.maxDamage = 10;
 		this.stamCost = 20;
@@ -64,7 +64,7 @@ public class Weapon {
 		return durability;
 	}
 	
-	private void setDurability(int durability) {
+	public void setDurability(int durability) {
 		this.durability = durability;
 	}
 	

@@ -83,21 +83,29 @@ public class Character {
 	}
 	
 	public int attackWith(Weapon weapon) {
+		
+		double damageOutPut = 0;
+		
 		if (weapon.isBroken()) {
 			return 0;
 		}
-		/*
+	
+		int diceDamage = (this.dice.roll() * (weapon.getMaxDamage() - weapon.getMinDamage()) / 100);
+		int damage = (weapon.getMinDamage() + Math.round(diceDamage));
 		if (this.stamina < weapon.getStamCost()) {
-			(this.stamina * 100) / weapon.getStamCost();
-		}*/
+			damageOutPut = damage *((double)this.stamina / (double)weapon.getStamCost());
+			damage = (int)damageOutPut;
+			
+		}
 		
-		int diceDamage = (this.dice.roll() * weapon.getMinDamage()) / 100;
-		int damage = weapon.getMinDamage() + Math.round(diceDamage);
-		
+		weapon.setDurability(weapon.getDurability() - 1);
 		this.stamina -= weapon.getStamCost();
 		
-		System.out.println("Damage: " + damage);
-		System.out.println("Stamina Resttante: " + this.stamina);
+		System.out.println("attack with : " + weapon.toString() + " > " + damage);
+		
+		if (this.stamina < 0) {
+			this.stamina = 0;
+		}
 		
 		return damage;
 	}
