@@ -6,10 +6,13 @@ public class Monster extends Character{
 			
 		
 		//Constructors
-		public Monster (String name) {
-			this();
-			this.name = name;
-			
+		public Monster (String name, int maxLife, int maxStamina) {
+			super(name);
+			this.maxLife = maxLife;
+			this.life = maxLife;
+			this.maxStamina = maxStamina;
+			this.stamina = maxStamina;
+
 		}
 		
 		public Monster () {

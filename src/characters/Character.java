@@ -18,7 +18,7 @@ public class Character {
 	public Character (String name) {
 		this();
 		this.name = name;
-		
+
 	}
 	
 	public Character () {
@@ -145,8 +145,7 @@ public class Character {
 	public void currentBattle (Character monster) {
 		int damage = this.attack();
 		monster.getHitWith(damage);
-		this.PrintStats();
-		monster.PrintStats();
+		
 		System.out.println("!!! " + this.name + " attack " + monster.name + " with " + this.getWeapon() + " !!! ->" + " DAMAGES : " + damage);
 		System.out.println(monster.name + " remaining life : " + monster.getCurrentLife());
 	}

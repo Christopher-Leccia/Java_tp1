@@ -3,9 +3,12 @@ package characters;
 public class Hero extends Character{
 	
 	//Constructors
-	public Hero (String name) {
-		this();
-		this.name = name;
+	public Hero (String name, int maxLife, int maxStamina) {
+		super(name);
+		this.maxLife = maxLife;
+		this.life = maxLife;
+		this.maxStamina = maxStamina;
+		this.stamina = maxStamina;
 
 	}
 	

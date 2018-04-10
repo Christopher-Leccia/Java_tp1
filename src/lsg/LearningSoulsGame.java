@@ -9,8 +9,8 @@ import lsg.weapons.*;
 
 public class LearningSoulsGame {
 	
-	Hero hero = new Hero ("Gurey");
-	Monster monster = new Monster ("Ezechiel");
+	Hero hero = new Hero ("Gurey", 100, 50);
+	Monster monster = new Monster ("Mongrel", 100, 50);
 	
 	Scanner scan = new Scanner(System.in);
 
@@ -19,22 +19,7 @@ public class LearningSoulsGame {
 		
 		Dice diceRoll = new Dice(50);
 		
-		Hero hero1 = new Hero();
-		Monster monster1 = new Monster();
-		
-		Sword weapon1 = new Sword("Buritzu blade", 7, 25, 20, 100);
-		Sword weaponSword = new Sword();
-		
-		Sword monstweapon = new Sword("Stickity Stick", 5, 10, 25, 100);
-		
-		hero1.SetWeapon(new ShotGun());
-		monster1.SetWeapon(new Sword("Stickity Stick", 5, 10, 25, 100));
-		
-		
-		while (hero1.getCurrentStamina() > 0 && monster1.IsAlive() == true) {
-			hero1.currentBattle(monster1);
-		}
-		
+		new LearningSoulsGame().play_v1();
 	}
 	
 	public void refresh() {
@@ -43,28 +28,40 @@ public class LearningSoulsGame {
 		this.monster.PrintStats();
 	}
 	
-	public String fight1v1() {
+	public int fight1v1() {
 		while (this.hero.IsAlive() && this.monster.IsAlive()) {
 			
 		refresh();
 		this.hero.currentBattle(this.monster);
 		String str = scan.nextLine();
 		
+		if (!this.monster.IsAlive()) {
+			System.out.println(this.hero.getName() + " won the battle !");
+			return 0;
+		}
+		
 		refresh();
 		this.monster.currentBattle(this.hero);
 		str = scan.nextLine();
 		
+		if (!this.hero.IsAlive()) {
+			System.out.println(this.monster.getName() + " won the battle !");
+			return 0;
 		}
-		if (this.hero.IsAlive()) {
-			return (this.hero.getName() + " won the battle !");
+		
 		}
-		if (this.monster.IsAlive()) {
-			return (this.monster.getName() + " won the battle !");
-		}
+		return 0;
+		
 	}
 	
 	public void init() {
-		
+		this.hero.SetWeapon(new Sword ("Buritzu Blade", 20, 50, 5, 100));
+		this.monster.SetWeapon(new Claw("Rusty Claw", 15, 45, 5, 100));
+	}
+	
+	public void play_v1() {
+		init();
+		fight1v1();
 	}
 
 }
