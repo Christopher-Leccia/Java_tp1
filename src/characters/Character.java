@@ -3,7 +3,7 @@ package characters;
 import lsg.weapons.Weapon;
 import lsg.helpers.Dice;
 
-public class Character {
+public abstract class Character {
 	
 	protected String name = new String();
 	
@@ -149,6 +149,8 @@ public class Character {
 		System.out.println("!!! " + this.name + " attack " + monster.name + " with " + this.getWeapon() + " !!! ->" + " DAMAGES : " + damage);
 		System.out.println(monster.name + " remaining life : " + monster.getCurrentLife());
 	}
+	
+	public abstract float computeProtection();
 	
 		
 }

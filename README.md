@@ -28,3 +28,8 @@ Le fait de devoir passer des membres de private à protected est dû au fait que
 6)Que remarquez-vous au niveau de la durabilité de l'épée? Pourquoi?
 
 La durabilité de l'épée descend aussi bien lorsque le héros attaque ou le monstre attaque. Du fait que l'on instancie la même épée aux 2 personnages (héro et monstre), la durabilité de l'épée est commune aux deux personnages.
+
+TP3
+
+4.2)
+L'erreur présentée sur les classes Hero et Monster est du au fait qu'il faut implementer la méthode abstraite computeProtection dans les sous-classes de la classe abstraite Character.

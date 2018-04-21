@@ -6,11 +6,13 @@ import characters.Hero;
 import characters.Monster;
 import lsg.helpers.*;
 import lsg.weapons.*;
+import lsg.armor.*;
 
 public class LearningSoulsGame {
 	
 	Hero hero = new Hero ("Gurey", 100, 50);
 	Monster monster = new Monster ("Mongrel", 100, 50);
+
 	
 	Scanner scan = new Scanner(System.in);
 
@@ -20,12 +22,15 @@ public class LearningSoulsGame {
 		Dice diceRoll = new Dice(50);
 		
 		new LearningSoulsGame().play_v1();
+		
+		
 	}
 	
 	public void refresh() {
 		
 		this.hero.PrintStats();
 		this.monster.PrintStats();
+
 	}
 	
 	public int fight1v1() {

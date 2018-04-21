@@ -3,6 +3,7 @@ package characters;
 public class Monster extends Character{
 	//Variables
 		private static int INSTANCES_COUNT = 1;
+		private float skinThickness = 20;
 			
 		
 		//Constructors
@@ -24,6 +25,20 @@ public class Monster extends Character{
 			maxStamina = 10;
 	
 		}
-	
+
+		protected float getSkinThickness() {
+			return skinThickness;
+		}
+
+		protected void setSkinThickness(float skinThickness) {
+			this.skinThickness = skinThickness;
+		}
+
+
+		public float computeProtection() {
+			
+			return 0;
+		}
+		
 		
 }
