@@ -1,16 +1,20 @@
-package characters;
+package lsg.characters;
 
 import lsg.armor.ArmorItem;
 import lsg.armor.DragonSlayerLeggings;
+import lsg.buffs.rings.Ring;
 
 public class Hero extends Character{
 	
 	private ArmorItem[] armor;
+	private Ring[] ring;
+	
 	private final int MAX_ARMOR_PIECE = 3;
+	private final int MAX_RING_PIECE = 2;
 	
 	public static void main (String[] args) {
 		Hero javaIllusionist = new Hero("JavaIllusionist", 100, 100);
-		ArmorItem equip1 = new DragonSlayerLeggings("DragonSlayer", 14.99f);
+		ArmorItem equip1 = new DragonSlayerLeggings();
 		
 		javaIllusionist.setArmorItem(equip1, 1);
 		
@@ -25,6 +29,7 @@ public class Hero extends Character{
 		this.maxStamina = maxStamina;
 		this.stamina = maxStamina;
 		this.armor = new ArmorItem[this.MAX_ARMOR_PIECE];
+		this.ring = new Ring[this.MAX_RING_PIECE];
 		
 		for (int i = 0; i < armor.length; i++) {
 			this.armor[i] = new ArmorItem();
@@ -39,6 +44,7 @@ public class Hero extends Character{
 		stamina = 50;
 		maxStamina = 50;
 		armor = new ArmorItem[this.MAX_ARMOR_PIECE];
+		ring = new Ring[this.MAX_RING_PIECE];
 	}
 
 	public float setArmorItem(ArmorItem armorPiece, int slot) {
@@ -82,7 +88,13 @@ public class Hero extends Character{
 
 	public float computeProtection() {
 		
-		return 0;
+		return this.getTotalArmor();
+	}
+
+	public void setRing(Ring r, int i) {
+		
+		this.ring[i] = r;
+		
 	}
 	
 	

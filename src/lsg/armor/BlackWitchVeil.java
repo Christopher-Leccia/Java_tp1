@@ -2,8 +2,8 @@ package lsg.armor;
 
 public class BlackWitchVeil extends ArmorItem {
 	
-	public BlackWitchVeil(String name, float armorValue) {
-		super(name, armorValue);
+	public BlackWitchVeil() {
+		super();
 		this.name = "Black Witch Veil";
 		this.armorValue = 4.6f;
 		

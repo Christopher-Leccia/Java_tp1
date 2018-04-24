@@ -1,4 +1,4 @@
-package characters;
+package lsg.characters;
 
 import lsg.weapons.Weapon;
 import lsg.helpers.Dice;
@@ -14,6 +14,10 @@ public abstract class Character {
 	
 	protected Dice dice;
 	protected Weapon weapon;
+	
+	protected final String LIFE_STAT_STRING = "LIFE : ";
+	protected final String STAM_STAT_STRING = "STAMINA : ";
+	protected final String PROTECTION_STAT_STRING = "PROTECTION : ";
 	
 	public Character (String name) {
 		this();
@@ -76,15 +80,15 @@ public abstract class Character {
 		System.out.println(this.toString());
 	}
 		
-	public void SetWeapon(Weapon weapon) {
+	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
 	}
 		
 	public String toString() {
 		if (this.IsAlive() == true) {
-		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + "LIFE:" + String.format("%-20s", this.life) + "STAMINA:" + String.format("%-20s", this.stamina) + "(ALIVE)";
+		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + this.LIFE_STAT_STRING + String.format("%-20s", this.life) + this.STAM_STAT_STRING + String.format("%-20s", this.stamina) + this.PROTECTION_STAT_STRING + String.format("%-20s", this.computeProtection()) + "(ALIVE)";
 		}
-		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + "LIFE:" + String.format("%-20s", this.life) + "STAMINA:" + String.format("%-20s", this.stamina) + "(DEAD)";
+		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + this.LIFE_STAT_STRING + String.format("%-20s", this.life) + this.STAM_STAT_STRING + String.format("%-20s", this.stamina) + this.PROTECTION_STAT_STRING + String.format("%-20s", this.computeProtection()) + "(DEAD)";
 	}
 		
 	public Boolean IsAlive() {
@@ -134,19 +138,27 @@ public abstract class Character {
 	public int getHitWith (int damage) {
 		int lifeRemaining;
 		
-		lifeRemaining = getCurrentLife() - damage;
+/*		if (this.computeProtection() >= 100) {
+			return damage = 0;
+		}*/
+		
+		int sauce = damage * Math.round(this.computeProtection()) / 100;
+		int damageReduced = damage - sauce;
+		
+		lifeRemaining = this.getCurrentLife() - damageReduced;
 		
 		lifeRemaining = lifeRemaining < 0 ? 0 : lifeRemaining;
 		this.setLife(lifeRemaining);
 		
-		return lifeRemaining;
+		return damageReduced;
 	}
 	
 	public void currentBattle (Character monster) {
 		int damage = this.attack();
-		monster.getHitWith(damage);
+		int damageReduced = monster.getHitWith(damage);
+	
 		
-		System.out.println("!!! " + this.name + " attack " + monster.name + " with " + this.getWeapon() + " !!! ->" + " DAMAGES : " + damage);
+		System.out.println("!!! " + this.name + " attack " + monster.name + " with " + this.getWeapon() + " !!! ->" + " ATTACK : " + damage + " | " + "DAMAGES : "  + damageReduced);
 		System.out.println(monster.name + " remaining life : " + monster.getCurrentLife());
 	}
 	

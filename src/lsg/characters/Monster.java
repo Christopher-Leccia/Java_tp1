@@ -1,9 +1,12 @@
-package characters;
+package lsg.characters;
+
+import lsg.buffs.talismans.Talisman;
 
 public class Monster extends Character{
 	//Variables
 		private static int INSTANCES_COUNT = 1;
 		private float skinThickness = 20;
+		private Talisman talisman;
 			
 		
 		//Constructors
@@ -13,7 +16,7 @@ public class Monster extends Character{
 			this.life = maxLife;
 			this.maxStamina = maxStamina;
 			this.stamina = maxStamina;
-
+			
 		}
 		
 		public Monster () {
@@ -33,11 +36,15 @@ public class Monster extends Character{
 		protected void setSkinThickness(float skinThickness) {
 			this.skinThickness = skinThickness;
 		}
+		
+		protected void setTalisman(Talisman talisman) {
+			this.talisman = talisman;
+		}
 
 
 		public float computeProtection() {
 			
-			return 0;
+			return skinThickness;
 		}
 		
 		
