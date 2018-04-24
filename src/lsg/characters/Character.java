@@ -15,9 +15,10 @@ public abstract class Character {
 	protected Dice dice;
 	protected Weapon weapon;
 	
-	protected final String LIFE_STAT_STRING = "LIFE : ";
-	protected final String STAM_STAT_STRING = "STAMINA : ";
-	protected final String PROTECTION_STAT_STRING = "PROTECTION : ";
+	public static final String LIFE_STAT_STRING = "LIFE ";
+	public static final String STAM_STAT_STRING = "STAMINA ";
+	public static final String PROTECTION_STAT_STRING = "PROTECTION ";
+	public static final String BUFF_STAT_STRING = "BUFF ";
 	
 	public Character (String name) {
 		this();
