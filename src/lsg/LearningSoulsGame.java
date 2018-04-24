@@ -3,16 +3,18 @@ package lsg;
 import java.util.Scanner;
 
 import lsg.characters.*;
+import lsg.consumables.Consumable;
+import lsg.consumables.MenuBestOfV4;
 import lsg.helpers.*;
 import lsg.weapons.*;
 import lsg.armor.*;
-import lsg.buffs.*;
 
 
 public class LearningSoulsGame {
 	
 	Hero hero = new Hero ("Gurey", 100, 50);
 	Monster monster = new Monster ("Mongrel", 100, 50);
+	Hero victim = new Hero("Victim", 100 , 100);
 
 	
 	ArmorItem equip1 = new DragonSlayerLeggings();
@@ -26,7 +28,9 @@ public class LearningSoulsGame {
 		
 		Dice diceRoll = new Dice(50);
 		
-		new LearningSoulsGame().play_v3();
+		LearningSoulsGame lsg = new LearningSoulsGame();
+		lsg.createExhaustedHero();
+		lsg.aTable();
 		
 		
 	}
@@ -87,6 +91,22 @@ public class LearningSoulsGame {
 		this.hero.setArmorItem(equip2, 2);
 		this.monster = new Lycanthrope();
 		fight1v1();
+	}
+	
+	public void createExhaustedHero() {
+		this.victim.getHitWith(99);
+		this.victim.setWeapon(new Weapon("BONER-KUN", 0, 0, 1000, 100));
+		this.victim.attack();
+		this.victim.PrintStats();
+	}
+	
+	public void aTable() {
+		MenuBestOfV4 consumingObject = new MenuBestOfV4();
+		for (Consumable consumable : consumingObject.getMenu()) {
+			this.victim.use(consumable);
+			this.victim.PrintStats();
+			System.out.println("After use : " + consumable.toString());
+		}
 	}
 
 }

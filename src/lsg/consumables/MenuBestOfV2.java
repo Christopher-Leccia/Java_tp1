@@ -3,11 +3,12 @@ package lsg.consumables;
 import lsg.consumables.food.*;
 import lsg.consumables.drinks.*;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class MenuBestOfV2 {
 	
 	
-	private HashSet<Consumable> menu = new HashSet<Consumable>();
+	private LinkedHashSet<Consumable> menu = new LinkedHashSet<Consumable>();
 	
 	public MenuBestOfV2() {
 		
@@ -32,8 +33,8 @@ public class MenuBestOfV2 {
 		return display;
 	}
 	
-	protected HashSet<Consumable> getMenu() {
-		return menu;
+	public LinkedHashSet<Consumable> getMenu() {
+		return this.menu;
 	}
 	
 	public static void main(String[] args) {

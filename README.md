@@ -33,3 +33,11 @@ TP3
 
 4.2)
 L'erreur présentée sur les classes Hero et Monster est du au fait qu'il faut implementer la méthode abstraite computeProtection dans les sous-classes de la classe abstraite Character.
+
+TP4
+
+3.3)
+Il est précisé dans la documentation qu'il n'est pas garanti, que dans l'itération, l'ordre des entrées reste le même que lors de la déclaration.
+
+3.4)
+Dans la documenation officiel il est précisé que grâce a une liste 'liée' il est possible de connaitre l'ordre d'itération des élément présent dans le HashSet, c'est dans l'ordre d'insertion des données.

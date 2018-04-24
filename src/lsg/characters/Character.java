@@ -1,6 +1,9 @@
 package lsg.characters;
 
 import lsg.weapons.Weapon;
+import lsg.consumables.Consumable;
+import lsg.consumables.drinks.Drink;
+import lsg.consumables.food.Food;
 import lsg.helpers.Dice;
 
 public abstract class Character {
@@ -139,10 +142,6 @@ public abstract class Character {
 	public int getHitWith (int damage) {
 		int lifeRemaining;
 		
-/*		if (this.computeProtection() >= 100) {
-			return damage = 0;
-		}*/
-		
 		int sauce = damage * Math.round(this.computeProtection()) / 100;
 		int damageReduced = damage - sauce;
 		
@@ -164,6 +163,49 @@ public abstract class Character {
 	}
 	
 	public abstract float computeProtection();
+	
+	
+	private int drink(Drink drink) {
+		
+		int recovering;
+		System.out.println(this.name + " drinks " + drink);
+		if (drink.use() >= (this.getMaxStamina() - this.getCurrentStamina())) {
+			recovering = this.getMaxStamina() - this.getCurrentStamina();
+			this.setStamina(this.getMaxStamina());
+		}
+		else {
+			this.setStamina(this.getCurrentStamina() + drink.use());
+			recovering = drink.use();
+		}
+		
+		return recovering;
+	}
+	
+	private int eat(Food food) {
+		
+		int recovering;
+		System.out.println(this.name + " eats " + food);
+		if (food.use() >= (this.getMaxLife() - this.getCurrentLife())) {
+			recovering = this.getMaxLife() - this.getCurrentLife();
+			this.setLife(this.getMaxLife());
+		}
+		else {
+			this.setLife(this.getCurrentLife() + food.use());
+			recovering = food.use();
+		}
+		
+		return recovering;
+	}
+	
+	public void use(Consumable consumable) {
+		
+		if (consumable instanceof Drink) {
+			this.drink((Drink) consumable);
+		}
+		else {
+			this.eat((Food) consumable);
+		}
+	}
 	
 		
 }

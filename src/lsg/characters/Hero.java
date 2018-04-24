@@ -45,6 +45,10 @@ public class Hero extends Character{
 		maxStamina = 50;
 		armor = new ArmorItem[this.MAX_ARMOR_PIECE];
 		ring = new Ring[this.MAX_RING_PIECE];
+		
+		for (int i = 0; i < armor.length; i++) {
+			this.armor[i] = new ArmorItem();
+		}
 	}
 
 	public float setArmorItem(ArmorItem armorPiece, int slot) {
