@@ -2,15 +2,20 @@ package lsg;
 
 import java.util.Scanner;
 
+import com.sun.org.apache.bcel.internal.generic.GOTO;
+
 import lsg.characters.*;
 import lsg.consumables.Consumable;
 import lsg.consumables.MenuBestOfV4;
+import lsg.consumables.food.Hamburger;
 import lsg.helpers.*;
 import lsg.weapons.*;
 import lsg.armor.*;
 
 
 public class LearningSoulsGame {
+	
+	public static final String BULLET_POINT = "\u2219";
 	
 	Hero hero = new Hero ("Gurey", 100, 50);
 	Monster monster = new Monster ("Mongrel", 100, 50);
@@ -29,8 +34,8 @@ public class LearningSoulsGame {
 		Dice diceRoll = new Dice(50);
 		
 		LearningSoulsGame lsg = new LearningSoulsGame();
-		lsg.createExhaustedHero();
-		lsg.aTable();
+		lsg.title();
+		lsg.play_v3();;
 		
 		
 	}
@@ -38,6 +43,8 @@ public class LearningSoulsGame {
 	public void refresh() {
 		
 		this.hero.PrintStats();
+		System.out.println(this.BULLET_POINT + this.hero.getWeapon().toString());
+		System.out.println(this.BULLET_POINT + this.hero.getConsumable().toString());
 		this.monster.PrintStats();
 
 	}
@@ -45,9 +52,30 @@ public class LearningSoulsGame {
 	public int fight1v1() {
 		while (this.hero.IsAlive() && this.monster.IsAlive()) {
 			
+			boolean input = true;
+			
 		refresh();
-		this.hero.currentBattle(this.monster);
-		String str = scan.nextLine();
+		System.out.println("\nHero's action for next move : (1) Attack | (2) Consume > ");
+		int action = scan.nextInt();
+		
+		while (input) {
+			switch (action) {
+			case 1:
+				this.hero.currentBattle(this.monster);
+				input = false;
+				break;
+			
+			case 2:
+				this.hero.consume();
+				input = false;
+				break;
+		
+			default :
+				System.out.println("\nHero's action for next move : (1) Attack | (2) Consume > ");
+				action = scan.nextInt();
+				break;
+			}
+		}
 		
 		if (!this.monster.IsAlive()) {
 			System.out.println(this.hero.getName() + " won the battle !");
@@ -56,7 +84,7 @@ public class LearningSoulsGame {
 		
 		refresh();
 		this.monster.currentBattle(this.hero);
-		str = scan.nextLine();
+		
 		
 		if (!this.hero.IsAlive()) {
 			System.out.println(this.monster.getName() + " won the battle !");
@@ -71,6 +99,8 @@ public class LearningSoulsGame {
 	public void init() {
 		this.hero.setWeapon(new Sword ("Buritzu Blade", 20, 50, 5, 100));
 		this.monster.setWeapon(new Claw("Rusty Claw", 15, 45, 5, 100));
+		
+		this.hero.setConsumable(new Hamburger());
 	}
 	
 	public void play_v1() {
@@ -107,6 +137,14 @@ public class LearningSoulsGame {
 			this.victim.PrintStats();
 			System.out.println("After use : " + consumable.toString());
 		}
+		victim.getWeapon().printStatWeapon();
+	}
+	
+	public void title() {
+		System.out.println("###########################");
+		System.out.println("# THE LEARNING SOULS GAME #");
+		System.out.println("###########################");
+		
 	}
 
 }

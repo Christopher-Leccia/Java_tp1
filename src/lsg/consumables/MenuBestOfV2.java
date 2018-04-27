@@ -2,7 +2,6 @@ package lsg.consumables;
 
 import lsg.consumables.food.*;
 import lsg.consumables.drinks.*;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 public class MenuBestOfV2 {

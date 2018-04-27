@@ -24,12 +24,20 @@ public class Consumable {
 		return stat;
 	}
 	
-	public String toString() {
-		return this.name + " [" + this.capacity + " " + this.stat + " point(s) ]";
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setStat(String stat) {
+		this.stat = stat;
 	}
 	
 	protected void setCapacity(int capacity) {
 		this.capacity = capacity;
+	}	
+	
+	public String toString() {
+		return this.name + " [" + this.capacity + " " + this.stat + " point(s) ]";
 	}
 	
 	public int use() {
@@ -37,5 +45,7 @@ public class Consumable {
 		this.setCapacity(0);
 		return currentCapacity;
 	}
+
+
 
 }

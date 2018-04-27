@@ -1,5 +1,7 @@
 package lsg.weapons;
 
+import lsg.consumables.repair.RepairKit;
+
 public class Weapon {
 	
 	protected String name = new String();
@@ -9,7 +11,7 @@ public class Weapon {
 	protected int stamCost;
 	protected int durability;
 	
-	public static final String DURABILITY_STAT_STRING = "DURABILITY : ";
+	public static final String DURABILITY_STAT_STRING = "DURABILITY";
 	
 	public Weapon (String name, int minDamage, int maxDamage, int stamCost, int durability) {
 		this.name = name;
@@ -86,6 +88,8 @@ public class Weapon {
 		return this.name + " (min:" + this.minDamage + " max:" + this.maxDamage + " stam:" + this.stamCost + " dur:" + this.durability + ")";
 	}
 	
-	
+	public void repairWith(RepairKit kit) {
+		kit.use();
+	}
 
 }

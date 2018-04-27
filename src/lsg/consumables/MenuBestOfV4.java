@@ -1,9 +1,13 @@
 package lsg.consumables;
 
+import lsg.consumables.repair.RepairKit;
+
 public class MenuBestOfV4 extends MenuBestOfV2{
 	
 	public MenuBestOfV4() {
 		super();
+		
+		this.getMenu().add(new RepairKit());
 
 	}
 	
