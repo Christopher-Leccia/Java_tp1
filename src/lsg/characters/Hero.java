@@ -95,9 +95,14 @@ public class Hero extends Character{
 		return this.getTotalArmor();
 	}
 
-	public void setRing(Ring r, int i) {
+	public float setRing(Ring ringEquiped, int slot) {
 		
-		this.ring[i] = r;
+		if (slot < 0 || slot > this.MAX_RING_PIECE) {
+			return 0;
+		}
+		
+		this.ring[slot - 1] = ringEquiped;
+		return ring[slot - 1].computeBuffValue();
 		
 	}
 	

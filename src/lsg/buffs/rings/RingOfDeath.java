@@ -9,6 +9,10 @@ public class RingOfDeath extends Ring{
 	public RingOfDeath() {
 		super("Ring of Death", 10000) ;
 	}
+	
+	/**
+	 * La particularité de cet anneau est le fait qu'il ne donne ces effets uniquement si le héro a moins de la moitité de ces points de vie
+	 */
 
 	@Override
 	public float computeBuffValue() {

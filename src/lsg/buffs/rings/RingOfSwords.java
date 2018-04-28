@@ -25,6 +25,6 @@ public class RingOfSwords extends Ring{
 		RingOfSwords r = new RingOfSwords() ;
 		hero.setRing(r, 1);
 		hero.setWeapon(new Sword());
-		System.out.println(r);
+		System.out.println(r.toString());
 	}
 }
