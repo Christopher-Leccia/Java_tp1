@@ -2,6 +2,7 @@ package lsg.characters;
 
 import lsg.armor.ArmorItem;
 import lsg.armor.DragonSlayerLeggings;
+import lsg.bags.Collectible;
 import lsg.buffs.rings.Ring;
 
 public class Hero extends Character{
@@ -106,5 +107,30 @@ public class Hero extends Character{
 		
 	}
 	
+	public void equip(ArmorItem item, int slot) {
+		Collectible[] items = this.getBagItems();
+		
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] == item) {
+				if (this.setArmorItem(item, slot) != 0) {
+					this.pullOut(items[i]);
+					System.out.println(this.getName() + " pulls out " + item.toString() + " and equips it !");
+				}	
+			}
+		}
+	}
+	
+	public void equip(Ring ring, int slot) {
+		Collectible[] items = this.getBagItems();
+		
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] == ring) {
+				if (this.setRing(ring, slot) != 0) {
+					this.pullOut(items[i]);
+					System.out.println(this.getName() + " pulls out " + ring.toString() + " and equips it !");
+				}	
+			}
+		}
+	}
 	
 }

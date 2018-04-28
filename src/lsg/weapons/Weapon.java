@@ -1,8 +1,9 @@
 package lsg.weapons;
 
+import lsg.bags.Collectible;
 import lsg.consumables.repair.RepairKit;
 
-public class Weapon {
+public class Weapon implements Collectible{
 	
 	protected String name = new String();
 	
@@ -12,6 +13,8 @@ public class Weapon {
 	protected int durability;
 	
 	public static final String DURABILITY_STAT_STRING = "DURABILITY";
+	
+	protected int weight = 2;
 	
 	public Weapon (String name, int minDamage, int maxDamage, int stamCost, int durability) {
 		this.name = name;
@@ -84,12 +87,19 @@ public class Weapon {
 		
 	}
 	
+	@Override
 	public String toString() {
 		return this.name + " (min:" + this.minDamage + " max:" + this.maxDamage + " stam:" + this.stamCost + " dur:" + this.durability + ")";
 	}
 	
 	public void repairWith(RepairKit kit) {
 		kit.use();
+	}
+
+	@Override
+	public int getWeight() {
+		
+		return this.weight;
 	}
 
 }

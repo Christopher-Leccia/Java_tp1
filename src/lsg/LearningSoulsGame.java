@@ -2,15 +2,16 @@ package lsg;
 
 import java.util.Scanner;
 
-import com.sun.org.apache.bcel.internal.generic.GOTO;
-
 import lsg.characters.*;
+import lsg.characters.Character;
 import lsg.consumables.Consumable;
 import lsg.consumables.MenuBestOfV4;
+import lsg.consumables.drinks.Wine;
 import lsg.consumables.food.Hamburger;
 import lsg.helpers.*;
 import lsg.weapons.*;
 import lsg.armor.*;
+import lsg.bags.*;
 
 
 public class LearningSoulsGame {
@@ -20,6 +21,9 @@ public class LearningSoulsGame {
 	Hero hero = new Hero ("Gurey", 100, 50);
 	Monster monster = new Monster ("Mongrel", 100, 50);
 	Hero victim = new Hero("Victim", 100 , 100);
+	
+	Character test = new Hero();
+	Bag superBag = new MediumBag();
 
 	
 	ArmorItem equip1 = new DragonSlayerLeggings();
@@ -35,8 +39,15 @@ public class LearningSoulsGame {
 		
 		LearningSoulsGame lsg = new LearningSoulsGame();
 		lsg.title();
-		lsg.play_v3();;
+		lsg.testBag();
 		
+		
+	}
+	
+	public void title() {
+		System.out.println("###########################");
+		System.out.println("# THE LEARNING SOULS GAME #");
+		System.out.println("###########################");
 		
 	}
 	
@@ -140,10 +151,14 @@ public class LearningSoulsGame {
 		victim.getWeapon().printStatWeapon();
 	}
 	
-	public void title() {
-		System.out.println("###########################");
-		System.out.println("# THE LEARNING SOULS GAME #");
-		System.out.println("###########################");
+	public void testBag() {
+		DragonSlayerLeggings dsl = new DragonSlayerLeggings();
+		ArmorItem bwv = new BlackWitchVeil();
+		Hamburger hbg = new Hamburger();
+		Wine win = new Wine();
+		
+		Weapon sword = new Sword();
+		
 		
 	}
 
