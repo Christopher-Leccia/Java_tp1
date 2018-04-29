@@ -299,17 +299,44 @@ public abstract class Character {
 		}
 	}
 	
-	private <type extends Consumable> void fastUseFirst() {
-		Collectible[] items = this.getBagItems();
-        boolean ok = false;
-        for (int i = 0; i < items.length; i++) {
-            if (ok) {
-                break;
-            }
-            if (items[i] instanceof Consumable) {
-                this.consume((type)items[i]);
-                ok = true;
-            }
-        }
+	private Consumable fastUseFirst(Class<? extends Consumable> type) {
+		Consumable consumed = null;
+		String doing = "";
+		
+		for (Collectible vrac : bag.getItems()) {
+						
+			if (type.isInstance(vrac)) {
+				this.use((Consumable) vrac);
+				
+				if (vrac instanceof Food) {
+					doing = " eats ";
+				}
+				if (vrac instanceof Drink) {
+					doing = " drinks ";
+				}
+				if (vrac instanceof RepairKit) {
+					doing = " repairs ";
+				}
+				
+				System.out.println(this.getName() + doing + vrac.toString());
+				
+				if (((Consumable) vrac).getCapacity()<=0)
+					this.pullOut(vrac);
+				consumed = (Consumable) vrac;
+			}
+		}
+		return consumed;
+	}
+	
+	public Drink fastDrink() {
+		return (Drink)this.fastUseFirst(Drink.class);
+	}
+	
+	public Food fastEat() {
+		return (Food)this.fastUseFirst(Food.class);
+	}
+	
+	public RepairKit fastRepair() {
+		return (RepairKit)this.fastUseFirst(RepairKit.class);
 	}
 }
