@@ -32,20 +32,33 @@ public class Monster extends Character{
 		protected float getSkinThickness() {
 			return skinThickness;
 		}
+		
+		public Talisman getTalisman() {
+			return this.talisman;
+		}
 
 		protected void setSkinThickness(float skinThickness) {
 			this.skinThickness = skinThickness;
 		}
 		
-		protected void setTalisman(Talisman talisman) {
+		public void setTalisman(Talisman talisman) {
 			this.talisman = talisman;
 		}
 
-
+		@Override
 		public float computeProtection() {
 			
-			return skinThickness;
+			return this.getSkinThickness();
 		}
 		
+		@Override
+		public float computeBuff() {
+			if (talisman != null) {
+				return this.talisman.computeBuffValue();
+			}
+			else {
+				return 0;
+			}
+		}
 		
 }

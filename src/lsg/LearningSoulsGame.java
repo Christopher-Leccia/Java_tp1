@@ -2,8 +2,6 @@ package lsg;
 
 import java.util.Scanner;
 
-import com.sun.org.apache.bcel.internal.generic.GOTO;
-
 import lsg.characters.*;
 import lsg.consumables.Consumable;
 import lsg.consumables.MenuBestOfV4;
@@ -11,6 +9,7 @@ import lsg.consumables.food.Hamburger;
 import lsg.helpers.*;
 import lsg.weapons.*;
 import lsg.armor.*;
+import lsg.buffs.rings.*;
 
 
 public class LearningSoulsGame {
@@ -118,8 +117,9 @@ public class LearningSoulsGame {
 	public void play_v3() {
 		init();
 		this.hero.setArmorItem(equip1, 1);
-		this.hero.setArmorItem(equip2, 2);
-		this.monster = new Lycanthrope();
+		monster = new Lycanthrope();
+		hero.setRing(new DragonSlayerRing(), 1);
+		hero.setRing(new RingOfDeath(), 2);
 		fight1v1();
 	}
 	

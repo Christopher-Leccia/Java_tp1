@@ -78,22 +78,33 @@ public class Hero extends Character{
 	}
 	
 	public ArmorItem[] getArmorItem() {
-		ArmorItem[] heroArmor = new ArmorItem[0];
+		ArmorItem[] displayArmor;
+		int j = 0;
 		
-		for (int i = 0; i < armor.length; i++) {
-			if (armor[i].getArmorValue() != 0) {
-				heroArmor[i] = armor[i];
+		for (int i = 0; i < MAX_ARMOR_PIECE; i++) {
+			if (this.armor[i] != null) {
+				j++;
+			}
+		}
+		displayArmor = new ArmorItem[j];
+		j = 0;
+		
+		for (int i = 0; i < MAX_RING_PIECE; i++) {
+			if (this.armor[i] != null) {
+				displayArmor[j] = this.armor[i];
+				j++;
 			}
 		}
 		
-		return heroArmor;
+		return displayArmor;
 	}
 
-
+	@Override
 	public float computeProtection() {
 		
 		return this.getTotalArmor();
 	}
+	
 
 	public float setRing(Ring ringEquiped, int slot) {
 		
@@ -102,9 +113,40 @@ public class Hero extends Character{
 		}
 		
 		this.ring[slot - 1] = ringEquiped;
+		ringEquiped.setHero(this);
 		return ring[slot - 1].computeBuffValue();
 		
 	}
 	
+	public Ring[] getRings() {
+		Ring[] displayRing;
+		int j = 0;
+		
+		for (int i = 0; i < MAX_RING_PIECE; i++) {
+			if (this.ring[i] != null) {
+				j++;
+			}
+		}
+		displayRing = new Ring[j];
+		j = 0;
+		
+		for (int i = 0; i < MAX_RING_PIECE; i++) {
+			if (this.ring[i] != null) {
+				displayRing[j] = this.ring[i];
+				j++;
+			}
+		}
+		
+		return displayRing;
+		}
 	
+	@Override
+	public float computeBuff() {
+		float totalBuff = 0;
+		for (Ring r : this.ring) {
+			totalBuff += r.computeBuffValue();
+		}
+		return totalBuff;
+	}	
+
 }
