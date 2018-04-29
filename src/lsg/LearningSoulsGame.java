@@ -12,6 +12,7 @@ import lsg.helpers.*;
 import lsg.weapons.*;
 import lsg.armor.*;
 import lsg.bags.*;
+import lsg.buffs.rings.*;
 
 
 public class LearningSoulsGame {
@@ -39,7 +40,7 @@ public class LearningSoulsGame {
 		
 		LearningSoulsGame lsg = new LearningSoulsGame();
 		lsg.title();
-		lsg.testBag();
+		lsg.testBag_v3();
 		
 		
 	}
@@ -129,8 +130,9 @@ public class LearningSoulsGame {
 	public void play_v3() {
 		init();
 		this.hero.setArmorItem(equip1, 1);
-		this.hero.setArmorItem(equip2, 2);
-		this.monster = new Lycanthrope();
+		monster = new Lycanthrope();
+		hero.setRing(new DragonSlayerRing(), 1);
+		hero.setRing(new RingOfDeath(), 2);
 		fight1v1();
 	}
 	
@@ -151,15 +153,48 @@ public class LearningSoulsGame {
 		victim.getWeapon().printStatWeapon();
 	}
 	
-	public void testBag() {
+	public void testBag_v1() {
 		DragonSlayerLeggings dsl = new DragonSlayerLeggings();
-		ArmorItem bwv = new BlackWitchVeil();
-		Hamburger hbg = new Hamburger();
-		Wine win = new Wine();
 		
-		Weapon sword = new Sword();
+		hero.pickUp(dsl);
+		hero.printBag();
+		hero.pullOut(dsl);
+		hero.printBag();
 		
 		
+	}
+	
+	public void testBag_v2() {
+		DragonSlayerLeggings dsl = new DragonSlayerLeggings();
+		DragonSlayerRing dsr = new DragonSlayerRing();
+		
+		hero.pickUp(dsl);
+		hero.pickUp(dsr);
+		hero.printBag();
+		hero.equip(dsl, 1);
+		hero.printBag();
+		hero.equip(dsr, 1);
+		hero.printBag();
+		
+	}
+	
+	public void testBag_v3() {
+		DragonSlayerLeggings dsl = new DragonSlayerLeggings();
+		DragonSlayerRing dsr = new DragonSlayerRing();
+		Weapon shotg = new ShotGun();
+		Bag mb = new MediumBag();
+		Bag defaultbag = new SmallBag();
+		
+		hero.setBag(defaultbag);
+		
+		hero.pickUp(dsl);
+		hero.pickUp(dsr);
+		hero.pickUp(shotg);
+		hero.printBag();
+		
+		Bag.transfert(defaultbag, mb);
+		
+		hero.printBag();
 	}
 
 }

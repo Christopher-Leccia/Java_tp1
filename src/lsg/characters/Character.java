@@ -107,9 +107,9 @@ public abstract class Character {
 	@Override	
 	public String toString() {
 		if (this.IsAlive() == true) {
-		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + this.LIFE_STAT_STRING + String.format("%-20s", this.life) + this.STAM_STAT_STRING + String.format("%-20s", this.stamina) + this.PROTECTION_STAT_STRING + String.format("%-20s", this.computeProtection()) + "(ALIVE)";
+		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + this.LIFE_STAT_STRING + String.format("%-20s", this.life) + this.STAM_STAT_STRING + String.format("%-20s", this.stamina) + this.PROTECTION_STAT_STRING + String.format("%-20s", this.computeProtection()) + this.BUFF_STAT_STRING + String.format("%-20s", this.computeBuff()) + "(ALIVE)";
 		}
-		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + this.LIFE_STAT_STRING + String.format("%-20s", this.life) + this.STAM_STAT_STRING + String.format("%-20s", this.stamina) + this.PROTECTION_STAT_STRING + String.format("%-20s", this.computeProtection()) + "(DEAD)";
+		return String.format("%-20s", "[" + this.getClass().getSimpleName() + "]") + String.format("%-20s", this.name) + this.LIFE_STAT_STRING + String.format("%-20s", this.life) + this.STAM_STAT_STRING + String.format("%-20s", this.stamina) + this.PROTECTION_STAT_STRING + String.format("%-20s", this.computeProtection()) + this.BUFF_STAT_STRING + String.format("%-20s", this.computeBuff()) + "(DEAD)";
 	}
 		
 	public Boolean IsAlive() {
@@ -137,6 +137,9 @@ public abstract class Character {
 			damageOutPut = damage *((double)this.stamina / (double)weapon.getStamCost());
 			damage = (int)damageOutPut;	
 		}
+		
+		float buffedDamage = (float) ((this.computeBuff() / 100) * damage);
+		damage += (int) buffedDamage;
 		
 		weapon.setDurability(weapon.getDurability() - 1);
 		this.stamina -= weapon.getStamCost();
@@ -180,6 +183,7 @@ public abstract class Character {
 	}
 	
 	public abstract float computeProtection();
+	public abstract float computeBuff();
 	
 	
 	private int drink(Drink drink) {
@@ -259,7 +263,7 @@ public abstract class Character {
 		return null;
 	}
 	
-	public void printBag(Collectible item) {
+	public void printBag() {
 		System.out.println(this.bag.toString());
 	}
 	
