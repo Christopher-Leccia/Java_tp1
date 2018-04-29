@@ -2,37 +2,43 @@ package lsg.buffs.rings;
 
 import lsg.characters.Hero;
 
-public class RingOfDeath extends Ring{
-	
-	private static float LIMIT = 0.5f ; 
+public class RingOfDeath extends Ring {
+
+	private static float LIMIT = 0.5f;
 
 	public RingOfDeath() {
-		super("Ring of Death", 10000) ;
+		super("Ring of Death", 10000);
 	}
-	
-	/**
-	 * La particularité de cet anneau est le fait qu'il ne donne ces effets uniquement si le héro a moins de la moitité de ces points de vie
-	 */
 
+	/**
+	 * Surcharge la méthode La particularité de cet anneau est le fait qu'il ne
+	 * donne ces effets uniquement si le héro a moins de la moitité de ces points de
+	 * vie
+	 */
 	@Override
 	public float computeBuffValue() {
-		if (hero != null){
-			float gauge = (float)hero.getCurrentLife() / hero.getMaxLife() ;
-			if(gauge <= LIMIT) return power ;
-			else return 0f ;
-		}else return 0f ;
+		if (hero != null) {
+			float gauge = (float) hero.getCurrentLife() / hero.getMaxLife();
+			if (gauge <= LIMIT)
+				return power;
+			else
+				return 0f;
+		} else
+			return 0f;
 	}
-	
+
 	/**
 	 * Un test...
-	 * @param args non utilisÃ©
+	 * 
+	 * @param args
+	 *            non utilisé
 	 */
 	public static void main(String[] args) {
-		Hero hero = new Hero() ;
-		Ring r = new RingOfDeath() ;
+		Hero hero = new Hero();
+		Ring r = new RingOfDeath();
 		hero.setRing(r, 1);
-		hero.getHitWith(60) ; // pour abaisser les PV du hero
+		hero.getHitWith(60); // pour abaisser les PV du hero
 		System.out.println(r);
 	}
-	
+
 }

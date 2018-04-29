@@ -3,7 +3,10 @@ package lsg.characters;
 import lsg.weapons.Claw;
 
 public class Lycanthrope extends Monster {
-	
+
+	/**
+	 * Constructeur vide
+	 */
 	public Lycanthrope() {
 		super("Lycanthrope", 250, 300);
 		this.setSkinThickness(30);

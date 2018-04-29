@@ -2,27 +2,39 @@ package lsg.armor;
 
 import lsg.bags.Collectible;
 
-public class ArmorItem implements Collectible{
-	
+public class ArmorItem implements Collectible {
+
 	protected String name;
 	protected float armorValue = 0;
 	protected int weight = 4;
-	
-	//Constructor
-	
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param name
+	 * @param armorValue
+	 */
+
 	public ArmorItem(String name, float armorValue) {
 		this();
 		this.name = name;
-		this.armorValue = armorValue;	
+		this.armorValue = armorValue;
 
 	}
-	
+
+	/**
+	 * Constructeur vide
+	 */
 	public ArmorItem() {
 		this.armorValue = 0;
 		this.name = "empty";
 	}
-	
-	//Getters
+
+	/**
+	 * Getters
+	 * 
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
@@ -31,16 +43,19 @@ public class ArmorItem implements Collectible{
 		return armorValue;
 	}
 
+	@Override
+	public int getWeight() {
 
+		return this.weight;
+	}
+
+	/**
+	 * Surcharge de la méthode toString() pour afficher les caractéristique d'une
+	 * armure
+	 */
+	@Override
 	public String toString() {
 		return this.name + "(" + this.armorValue + ")";
 	}
 
-	@Override
-	public int getWeight() {
-		
-		return this.weight;
-	}
-	
-	
 }

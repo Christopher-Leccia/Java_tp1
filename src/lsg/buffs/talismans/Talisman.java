@@ -5,27 +5,43 @@ import java.util.Calendar;
 import lsg.buffs.BuffItem;
 
 public class Talisman extends BuffItem {
-	
-	private float buff ;
-	private int start, end ; 
-	
+
+	private float buff;
+	private int start, end;
+
+	/**
+	 * Constructeur
+	 * 
+	 * @param name
+	 * @param buff
+	 * @param start
+	 * @param end
+	 */
 	public Talisman(String name, float buff, int start, int end) {
-		super(name) ;
-		this.buff = buff ;
-		this.start = start ;
-		this.end = end ;
+		super(name);
+		this.buff = buff;
+		this.start = start;
+		this.end = end;
 	}
-	
+
+	/**
+	 * Surcharge de la méthode Ici pour le monster, le buff se déclanche seullement
+	 * a une certaine heure de la journée
+	 */
 	@Override
 	public float computeBuffValue() {
-		int now = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ;
-		if(start <= end){
-			if(now >= start && now < end) return buff ;
-			else return 0f ;
-		}else{
-			if( (now <= 23 && now >= start) || (now >=0 && now < end)) return buff ;
-			else return 0f ;
+		int now = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		if (start <= end) {
+			if (now >= start && now < end)
+				return buff;
+			else
+				return 0f;
+		} else {
+			if ((now <= 23 && now >= start) || (now >= 0 && now < end))
+				return buff;
+			else
+				return 0f;
 		}
 	}
-	
+
 }

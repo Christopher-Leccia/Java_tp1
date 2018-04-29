@@ -1,9 +1,7 @@
 package lsg.bags;
 
 public interface Collectible {
-	
-	public int getWeight(); 
-		
-	
+
+	public int getWeight();
 
 }
