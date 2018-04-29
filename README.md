@@ -32,7 +32,7 @@ La durabilité de l'épée descend aussi bien lorsque le héros attaque ou le mo
 #### TP3
 
 4.2)
-L'erreur présentée sur les classes Hero et Monster est du au fait qu'il faut implementer la méthode abstraite computeProtection dans les sous-classes de la classe abstraite Character.
+L'erreur présentée sur les classes Hero et Monster est du au fait qu'il faut implementer la méthode abstraite computeProtection dans les sous-classes de la classe abstraite Character
 
 #### TP4
 
