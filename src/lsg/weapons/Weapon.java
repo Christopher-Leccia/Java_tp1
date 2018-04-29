@@ -2,6 +2,7 @@ package lsg.weapons;
 
 import lsg.bags.Collectible;
 import lsg.consumables.repair.RepairKit;
+import lsg.exceptions.ConsumeNullException;
 
 public class Weapon implements Collectible{
 	
@@ -89,11 +90,16 @@ public class Weapon implements Collectible{
 	
 	@Override
 	public String toString() {
-		return this.name + " (min:" + this.minDamage + " max:" + this.maxDamage + " stam:" + this.stamCost + " dur:" + this.durability + ")";
+		return this.getName() + " (min:" + this.minDamage + " max:" + this.maxDamage + " stam:" + this.stamCost + this.DURABILITY_STAT_STRING + " : " + this.durability + ")";
 	}
 	
-	public void repairWith(RepairKit kit) {
+	public void repairWith(RepairKit kit) throws ConsumeNullException {
+		if (kit == null) {
+			throw new ConsumeNullException(kit);
+		} 
+		else {
 		kit.use();
+		}
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import lsg.armor.BlackWitchVeil;
 import lsg.armor.DragonSlayerLeggings;
 import lsg.consumables.drinks.Wine;
 import lsg.consumables.food.Hamburger;
+import lsg.exceptions.BagFullException;
 import lsg.weapons.Sword;
 import lsg.weapons.Weapon;
 
@@ -32,7 +33,7 @@ public class Bag {
 	}
 	
 	
-	public void push(Collectible item) {
+	public void push(Collectible item) throws BagFullException {
 		if (item.getWeight() <= this.getCapacity() - this.getWeight()) {
 			this.items.add(item);
 			this.weight += item.getWeight();
@@ -98,13 +99,22 @@ public class Bag {
         }
     }
 	
-	public static void transfert(Bag from, Bag into) {
+	public static void transfert(Bag from, Bag into) throws BagFullException {
 		Collectible[] contentFrom = from.getItems();
+		
+		if (from == null || into ==null) {
+			return;
+		}
 		
 		for (int i = 0; i < contentFrom.length; i++) {
 			if (contentFrom[i] != null) {
 				if (contentFrom[i].getWeight() <= into.getCapacity() - into.getWeight()) {
-					into.push(contentFrom[i]);
+					try {
+						into.push(contentFrom[i]);
+					} catch (BagFullException e) {
+						
+						e.printStackTrace();
+					}
 					from.pop(contentFrom[i]);
 				}
 			}
@@ -114,9 +124,10 @@ public class Bag {
 	/**
 	 * Main permettant les tests sur Bag
 	 * @param args no use
+	 * @throws BagFullException 
 	 */
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws BagFullException {
 		Bag bag = new Bag(10);
 		Bag biggerBag = new MediumBag();
 		

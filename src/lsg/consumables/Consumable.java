@@ -1,6 +1,7 @@
 package lsg.consumables;
 
 import lsg.bags.Collectible;
+import lsg.exceptions.ConsumeEmptyException;
 
 public class Consumable implements Collectible{
 	
@@ -45,10 +46,15 @@ public class Consumable implements Collectible{
 		return this.name + " [" + this.capacity + " " + this.stat + " point(s) ]";
 	}
 	
-	public int use() {
-		int currentCapacity = this.getCapacity();
-		this.setCapacity(0);
-		return currentCapacity;
+	public int use() throws ConsumeEmptyException {
+		if (this.getCapacity() == 0) {
+			throw new ConsumeEmptyException(this);
+		}
+		else {
+			int currentCapacity = this.getCapacity();
+			this.setCapacity(0);
+			return currentCapacity;
+		}
 	}
 
 	@Override

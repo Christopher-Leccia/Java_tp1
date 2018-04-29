@@ -4,6 +4,7 @@ import lsg.armor.ArmorItem;
 import lsg.armor.DragonSlayerLeggings;
 import lsg.bags.Collectible;
 import lsg.buffs.rings.Ring;
+import lsg.exceptions.NoBagException;
 
 public class Hero extends Character{
 	
@@ -144,13 +145,15 @@ public class Hero extends Character{
 	public float computeBuff() {
 		float totalBuff = 0;
 		for (Ring r : this.ring) {
-			totalBuff += r.computeBuffValue();
+			if (r != null) {
+				totalBuff += r.computeBuffValue();
+			}
 		}
 		return totalBuff;
 	}	
 
 	
-	public void equip(ArmorItem item, int slot) {
+	public void equip(ArmorItem item, int slot) throws NoBagException {
 		Collectible[] items = this.getBagItems();
 		
 		for (int i = 0; i < items.length; i++) {
@@ -163,7 +166,7 @@ public class Hero extends Character{
 		}
 	}
 	
-	public void equip(Ring ring, int slot) {
+	public void equip(Ring ring, int slot) throws NoBagException {
 		Collectible[] items = this.getBagItems();
 		
 		for (int i = 0; i < items.length; i++) {
@@ -174,6 +177,21 @@ public class Hero extends Character{
 				}	
 			}
 		}
+	}
+	
+	public String ringToString() {
+		String slot1;
+		String slot2;
+		
+		
+		slot1 = this.ring[0] != null ? this.ring[0].toString() : "empty";
+		slot2 = this.ring[1] != null ? this.ring[1].toString() : "empty";
+		
+		return String.format("%-30s", "RINGS  1: " + slot1) + String.format("%-30s", " 2: " + slot2);
+	}
+	
+	public void printRing() {
+		System.out.println(this.ringToString());
 	}
 	
 }

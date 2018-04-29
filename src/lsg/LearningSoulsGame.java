@@ -8,6 +8,12 @@ import lsg.consumables.Consumable;
 import lsg.consumables.MenuBestOfV4;
 import lsg.consumables.drinks.Wine;
 import lsg.consumables.food.Hamburger;
+import lsg.exceptions.ConsumeEmptyException;
+import lsg.exceptions.ConsumeNullException;
+import lsg.exceptions.ConsumeRepairNullWeaponException;
+import lsg.exceptions.StaminaEmptyException;
+import lsg.exceptions.WeaponBrokenException;
+import lsg.exceptions.WeaponNullException;
 import lsg.helpers.*;
 import lsg.weapons.*;
 import lsg.armor.*;
@@ -17,7 +23,7 @@ import lsg.buffs.rings.*;
 
 public class LearningSoulsGame {
 	
-	public static final String BULLET_POINT = "\u2219";
+	public static final String BULLET_POINT = "\u2022";
 	
 	Hero hero = new Hero ("Gurey", 100, 50);
 	Monster monster = new Monster ("Mongrel", 100, 50);
@@ -33,15 +39,14 @@ public class LearningSoulsGame {
 	
 	Scanner scan = new Scanner(System.in);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws WeaponNullException, ConsumeNullException, WeaponBrokenException, StaminaEmptyException {
 		// TODO Auto-generated method stub
 		
-		Dice diceRoll = new Dice(50);
-		
 		LearningSoulsGame lsg = new LearningSoulsGame();
-		lsg.title();
-		lsg.testBag_v3();
-		
+		lsg.init();
+		lsg.testException();
+		lsg.refresh();
+
 		
 	}
 	
@@ -55,13 +60,22 @@ public class LearningSoulsGame {
 	public void refresh() {
 		
 		this.hero.PrintStats();
-		System.out.println(this.BULLET_POINT + this.hero.getWeapon().toString());
-		System.out.println(this.BULLET_POINT + this.hero.getConsumable().toString());
+		System.out.println(this.hero.armorToString());
+		this.hero.printRing();
+		this.hero.printConsumable();
+		this.hero.printWeapon();
+		this.hero.printBag();
+		
+		System.out.println("\n");
 		this.monster.PrintStats();
+		this.monster.printWeapon();
 
 	}
 	
-	public int fight1v1() {
+	public int fight1v1() throws WeaponNullException, WeaponBrokenException, StaminaEmptyException, ConsumeNullException {
+		
+		title();
+		
 		while (this.hero.IsAlive() && this.monster.IsAlive()) {
 			
 			boolean input = true;
@@ -73,12 +87,40 @@ public class LearningSoulsGame {
 		while (input) {
 			switch (action) {
 			case 1:
-				this.hero.currentBattle(this.monster);
+				try {
+					this.hero.currentBattle(this.monster);
+				} catch (WeaponNullException e) {
+					
+					e.printStackTrace();
+					System.out.println("No Weapon Equiped !!");
+				} catch (WeaponBrokenException e) {
+					
+					e.printStackTrace();
+					System.out.println("Weapon BROKEN !");
+				} catch (StaminaEmptyException e) {
+					
+					e.printStackTrace();
+					System.out.println("No STamina left !");
+				}
 				input = false;
 				break;
 			
 			case 2:
-				this.hero.consume();
+				try {
+					this.hero.consume();
+				} catch (ConsumeNullException e) {
+					
+					e.printStackTrace();
+					System.out.println("NO CONSUMABLE EQUIPED");
+				} catch (ConsumeEmptyException e) {
+					
+					e.printStackTrace();
+					System.out.println("ACTION HAS NO EFFECT: " + hero.getConsumable() + " is empty ! \n");
+				} catch (ConsumeRepairNullWeaponException e) {
+					
+					e.printStackTrace();
+					System.out.println("ACTION IMPOSSIBLE : no weapon has been equiped !\n");
+				}
 				input = false;
 				break;
 		
@@ -95,7 +137,13 @@ public class LearningSoulsGame {
 		}
 		
 		refresh();
-		this.monster.currentBattle(this.hero);
+		try {
+			this.monster.currentBattle(this.hero);
+		} catch (WeaponNullException | WeaponBrokenException | StaminaEmptyException e) {
+			
+			e.printStackTrace();
+			
+		}
 		
 		
 		if (!this.hero.IsAlive()) {
@@ -115,19 +163,19 @@ public class LearningSoulsGame {
 		this.hero.setConsumable(new Hamburger());
 	}
 	
-	public void play_v1() {
+	public void play_v1() throws ConsumeNullException, WeaponNullException, WeaponBrokenException, StaminaEmptyException {
 		init();
 		fight1v1();
 	}
 	
-	public void play_v2() {
+	public void play_v2() throws ConsumeNullException, WeaponNullException, WeaponBrokenException, StaminaEmptyException {
 		init();
 		this.hero.setArmorItem(equip1, 1);
 		this.hero.setArmorItem(equip2, 2);
 		fight1v1();
 	}
 	
-	public void play_v3() {
+	public void play_v3() throws ConsumeNullException, WeaponNullException, WeaponBrokenException, StaminaEmptyException {
 		init();
 		this.hero.setArmorItem(equip1, 1);
 		monster = new Lycanthrope();
@@ -139,62 +187,30 @@ public class LearningSoulsGame {
 	public void createExhaustedHero() {
 		this.victim.getHitWith(99);
 		this.victim.setWeapon(new Weapon("BONER-KUN", 0, 0, 1000, 100));
-		this.victim.attack();
+		
+		try {
+			this.victim.attack();
+		} catch (WeaponNullException e) {
+		
+			e.printStackTrace();
+			System.out.println("No weapon equiped");
+		} catch (WeaponBrokenException e) {
+			
+			e.printStackTrace();
+			System.out.println("WEAPON BROKEN");
+		} catch (StaminaEmptyException e) {
+			
+			e.printStackTrace();
+			System.out.println("No Stamina left !");
+		}
+		
 		this.victim.PrintStats();
 	}
 	
-	public void aTable() {
-		MenuBestOfV4 consumingObject = new MenuBestOfV4();
-		for (Consumable consumable : consumingObject.getMenu()) {
-			this.victim.use(consumable);
-			this.victim.PrintStats();
-			System.out.println("After use : " + consumable.toString());
-		}
-		victim.getWeapon().printStatWeapon();
+	public void testException() throws WeaponNullException, ConsumeNullException, WeaponBrokenException, StaminaEmptyException {
+		this.hero.setWeapon(null);
+		this.fight1v1();
 	}
 	
-	public void testBag_v1() {
-		DragonSlayerLeggings dsl = new DragonSlayerLeggings();
-		
-		hero.pickUp(dsl);
-		hero.printBag();
-		hero.pullOut(dsl);
-		hero.printBag();
-		
-		
-	}
-	
-	public void testBag_v2() {
-		DragonSlayerLeggings dsl = new DragonSlayerLeggings();
-		DragonSlayerRing dsr = new DragonSlayerRing();
-		
-		hero.pickUp(dsl);
-		hero.pickUp(dsr);
-		hero.printBag();
-		hero.equip(dsl, 1);
-		hero.printBag();
-		hero.equip(dsr, 1);
-		hero.printBag();
-		
-	}
-	
-	public void testBag_v3() {
-		DragonSlayerLeggings dsl = new DragonSlayerLeggings();
-		DragonSlayerRing dsr = new DragonSlayerRing();
-		Weapon shotg = new ShotGun();
-		Bag mb = new MediumBag();
-		Bag defaultbag = new SmallBag();
-		
-		hero.setBag(defaultbag);
-		
-		hero.pickUp(dsl);
-		hero.pickUp(dsr);
-		hero.pickUp(shotg);
-		hero.printBag();
-		
-		Bag.transfert(defaultbag, mb);
-		
-		hero.printBag();
-	}
 
 }
